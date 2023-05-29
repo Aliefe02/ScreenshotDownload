@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Steam Screenshot Downloader</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <div class="container">
+    <h1>Steam Screenshot Downloader</h1>
+    <p>Enter a Steam ID to download all screenshots that user has uploaded</p>
+   
+    <div class="form-group">
+      <form action="CreateZip" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+      <input type="text" id="steamIdInput" name="ID" placeholder="Enter Steam ID">
+	    <br/>
+	    <br/>
+      <button id="downloadButton" type="submit">Find Screenshots</button>
+      <p>This process might take up to 10-15 seconds</p>
+      <br/>
+      </form>
+      {% if ScreenshotCount != None %}
+        <p>{{ScreenshotCount}} Screenshots are found</p>
+        <a href="{% url 'download' Filename=Filename %}"><button style="background-color: white;color:black">Download</button></a>
+      {% else %}
+      {% endif %}  
+    </div>
+    
+    <div class="instructions">
+      <p>To find the Steam ID of a user:</p>
+      <ol>
+        <li>Launch the Steam client</li>
+        <li>Click on your profile name in the top-right corner</li>
+        <li>Select "View Profile"</li>
+        <li>The Steam ID will be displayed in the URL in the format: https://steamcommunity.com/profiles/XXXXXXXXXXXXX/</li>
+      </ol>
+    </div>
+  </div>
+</body>
+</html>
